@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <style>
-    #click_me1, #click_me2 {
+    #on, #off {
         margin: 5px;
         width: 100px;
         height: 50px;
@@ -16,6 +16,9 @@
         margin: 4px;
         width: 45px;
         height: 20px;
+    }
+    .buttonPressed {
+        background-color: black;
     }
 
 
@@ -35,8 +38,8 @@
         <input type="button" class="bulb" value="4">
     </form>
 
-      <button id="click_me2">OFF</button>
-      <button id="click_me1">ON</button>
+      <button id="off">OFF</button>
+      <button id="on">ON</button>
     
     
     
@@ -47,7 +50,7 @@
 $(document).ready(function () {
 
 // //On button click 
-// $("#click_me1").click(function(){
+// $("#on").click(function(){
 //         $.ajax({
 //         url: queryUrl,
 //         method: "GET"
@@ -58,58 +61,59 @@ $(document).ready(function () {
 //     })
 //     });
 
-// * // TODO make ajax dynamic callable
-//First PUT to Hue with button!
-$("#click_me1").click(function(){
-        $.ajax({
-        url: queryUrl,
-        method: "PUT", // * // TODO GET/PUT needs to be dynamic
-        data: JSON.stringify({"on":true}), // * // TODO data needs to be varible
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-    }).then(function (response) {
-        console.log(queryUrl)
-        //Nothing
-    })
-    });
+// // * // TODO make ajax dynamic callable
+// //First PUT to Hue with button!
+// $("#on").click(function(){
+//         $.ajax({
+//         url: queryUrl,
+//         method: "PUT", // * // TODO GET/PUT needs to be dynamic
+//         data: JSON.stringify({"on":true}), // * // TODO data needs to be varible
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//     }).then(function (response) {
+//         console.log(queryUrl)
+//         //Nothing
+//     })
+//     });
 
 
-//First PUT to Hue with button!
-$("#click_me2").click(function(){
-        $.ajax({
-        url: queryUrl,
-        method: "PUT",
-        data: JSON.stringify({"on":false}),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-    }).then(function (response) {
-        //Nothing
-    })
-    });
+// //First PUT to Hue with button!
+// $("#off").click(function(){
+//         $.ajax({
+//         url: queryUrl,
+//         method: "PUT",
+//         data: JSON.stringify({"on":false}),
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//     }).then(function (response) {
+//         //Nothing
+//     })
+//     });
 
 
 
-$(document).on("click", "input", function(event) {
-    bulb = $(this).val();
+$(".bulb").on("click", function() {
+    n = $(this).val();
+    console.log("this bulb: " + n)
+    bulb = n.toString();//Convert to string.
 
-    // var bulb = n.toString();
-    // var bulb = parseInt(n);
-
-    console.log("Bulb: " + bulb)
+// * // TODO Toggle button on click to show button pressed.
+    // n.toggleClass('.buttonPressed')
+    
+    console.log("97-Bulb: " + bulb)
 });
 
+
 // TEST var bulb might need to be a string
-// $("#click_me2").click(function(){
-//     console.log(bulb)
-// });
-
-
+$("#off").click(function(){
+    console.log(queryUrl)
+});
 
 
 //Vars hoisted
 var bridge = "192.168.0.10";//Needs to be dynamic and found automatically. DNS NetBIOS search Hue?
 var queryUrl = "http://" + bridge + "/api/Sf0AaTPVUAt7GWKbyVsnV3iHfvFCsMmG0R0erfRC/lights/" + bulb + "/state"; //state need to be var for bri and color
-var bulb;
+var bulb = "";
 
 
 
