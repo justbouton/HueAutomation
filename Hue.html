@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <style>
+    #click_me1, #click_me2 {
+        margin: 5px;
+        width: 100px;
+        height: 50px;
+    }
+
+    .bulb {
+        margin: 4px;
+        width: 45px;
+        height: 20px;
+    }
+
+
+    </style>
+    
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- bulb selector push button -->
+    <!-- Buttons need to be dynamically created -->
+
+    <form>
+        <input type="button" class="bulb" value="1">
+        <input type="button" class="bulb" value="2">
+        <input type="button" class="bulb" value="3">
+        <input type="button" class="bulb" value="4">
+    </form>
+
+      <button id="click_me2">OFF</button>
+      <button id="click_me1">ON</button>
+    
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>        
+        
+        <script>
+
+$(document).ready(function () {
+
+// //On button click 
+// $("#click_me1").click(function(){
+//         $.ajax({
+//         url: queryUrl,
+//         method: "GET"
+//     }).then(function (response) {
+//         console.log("Name: ?" + response);
+//         console.log("On: " + response.state.on);
+//         console.log("Brightness: " + response.state.bri);// If light off do not display
+//     })
+//     });
+
+// * // TODO make ajax dynamic callable
+//First PUT to Hue with button!
+$("#click_me1").click(function(){
+        $.ajax({
+        url: queryUrl,
+        method: "PUT", // * // TODO GET/PUT needs to be dynamic
+        data: JSON.stringify({"on":true}), // * // TODO data needs to be varible
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    }).then(function (response) {
+        console.log(queryUrl)
+        //Nothing
+    })
+    });
+
+
+//First PUT to Hue with button!
+$("#click_me2").click(function(){
+        $.ajax({
+        url: queryUrl,
+        method: "PUT",
+        data: JSON.stringify({"on":false}),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+    }).then(function (response) {
+        //Nothing
+    })
+    });
+
+
+
+$(document).on("click", "input", function(event) {
+    bulb = $(this).val();
+
+    // var bulb = n.toString();
+    // var bulb = parseInt(n);
+
+    console.log("Bulb: " + bulb)
+});
+
+// TEST var bulb might need to be a string
+// $("#click_me2").click(function(){
+//     console.log(bulb)
+// });
+
+
+
+
+//Vars hoisted
+var bridge = "192.168.0.10";//Needs to be dynamic and found automatically. DNS NetBIOS search Hue?
+var queryUrl = "http://" + bridge + "/api/Sf0AaTPVUAt7GWKbyVsnV3iHfvFCsMmG0R0erfRC/lights/" + bulb + "/state"; //state need to be var for bri and color
+var bulb;
+
+
+
+
+// state.on: true
+// or
+// {"on":true}
+
+
+
+});//Close $(document).ready
+        </script>
+</body>
+</html>
