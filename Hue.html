@@ -94,16 +94,16 @@ $(document).ready(function () {
 
 ///////
 /////////
-/////////// PROBLEM CHILD
+///////////  HELP! PROBLEM CHILD
 $(".bulb").on("click", function() {
     n = $(this).val();
-    console.log("this bulb: " + n)
-    bulb = n.toString();//Convert to string.
+    console.log("this bulb: " + n)//Logging $this on click.
+    bulb = n.toString();//Convert to string, store in var bulb.
 
 // * // TODO Toggle button on click to show button pressed.
     // n.toggleClass('.buttonPressed')
     
-    console.log("97-Bulb: " + bulb)
+    console.log("97-Bulb: " + bulb)//Loggin $this coverted to string.
 });
 
 
@@ -121,7 +121,7 @@ $("#off").click(function(){
 //Vars hoisted
 var bridge = "192.168.0.10";//Needs to be dynamic and found automatically. DNS NetBIOS search Hue?
 var queryUrl = "http://" + bridge + "/api/Sf0AaTPVUAt7GWKbyVsnV3iHfvFCsMmG0R0erfRC/lights/" + bulb + "/state"; //state need to be var for bri and color
-var bulb = "";
+var bulb = "";// HELP! Cannot get function value to push to global bulb.
 
 
 
